@@ -2,7 +2,7 @@
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
  *
- * This source cODE is licensed under the BSD-style license found in the
+ * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
@@ -21,12 +21,12 @@ class TreeTransformator {
 
   transform(tree, callback) {
     this.afterUrlsCacheBuild(tree, () => {
-      callback(this.transformNODE(tree));
+      callback(this.transformNode(tree));
     });
   }
 
   // private
-  transformNODE(tree) {
+  transformNode(tree) {
     if (tree.url in this.urlResults) {
       const original = this.urlResults[tree.url].originalPositionFor({
         line: tree.lineNumber,
@@ -41,7 +41,7 @@ class TreeTransformator {
     } else if (tree.deoptReason === 'outside_vm') {
       tree.functionName = 'OUTSIDE VM';
     }
-    tree.children = tree.children.map((t) => this.transformNODE(t));
+    tree.children = tree.children.map((t) => this.transformNode(t));
     return tree;
   }
 
@@ -99,7 +99,7 @@ class TreeTransformator {
       }).on('close', (err) => {
         if (!sawEnd) {
           console.error('Connection terminated prematurely because of: '
-                        + err.cODE + ' for url: ' + url);
+                        + err.code + ' for url: ' + url);
           callback();
         }
       });

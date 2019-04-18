@@ -14,8 +14,8 @@ module.exports = function makeCommand(command) {
       stdin: 'inherit',
     });
 
-    commandProcess.on('close', function prelink(cODE) {
-      if (cODE) {
+    commandProcess.on('close', function prelink(code) {
+      if (code) {
         throw new Error(`Error occured during executing "${command}" command`);
       }
 

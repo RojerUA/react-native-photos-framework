@@ -85,10 +85,10 @@
     videoRequestOptions.networkAccessAllowed = YES;
     
     PHVideoRequestOptionsVersion version = PHVideoRequestOptionsVersionCurrent;
-    PHVideoRequestOptionsDeliveryMODE deliveryMODE = PHVideoRequestOptionsDeliveryMODEAutomatic;
+    PHVideoRequestOptionsDeliveryMode deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
 
     if(params != nil) {
-        NSString *deliveryMODEQuery = [RCTConvert NSString:params[@"deliveryMODE"]];
+        NSString *deliveryModeQuery = [RCTConvert NSString:params[@"deliveryMode"]];
         NSString *versionQuery = [RCTConvert NSString:params[@"version"]];
         if(versionQuery) {
             if([versionQuery isEqualToString:@"original"]) {
@@ -96,20 +96,20 @@
             }
         }
         
-        if(deliveryMODEQuery != nil) {
-            if([deliveryMODEQuery isEqualToString:@"mediumQuality"]) {
-                deliveryMODE = PHVideoRequestOptionsDeliveryMODEMediumQualityFormat;
+        if(deliveryModeQuery != nil) {
+            if([deliveryModeQuery isEqualToString:@"mediumQuality"]) {
+                deliveryMode = PHVideoRequestOptionsDeliveryModeMediumQualityFormat;
             }
-            else if([deliveryMODEQuery isEqualToString:@"highQuality"]) {
-                deliveryMODE = PHVideoRequestOptionsDeliveryMODEHighQualityFormat;
+            else if([deliveryModeQuery isEqualToString:@"highQuality"]) {
+                deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
             }
-            else if([deliveryMODEQuery isEqualToString:@"fast"]) {
-                deliveryMODE = PHVideoRequestOptionsDeliveryMODEFastFormat;
+            else if([deliveryModeQuery isEqualToString:@"fast"]) {
+                deliveryMode = PHVideoRequestOptionsDeliveryModeFastFormat;
             }
         }
     }
 
-    videoRequestOptions.deliveryMODE = deliveryMODE;
+    videoRequestOptions.deliveryMode = deliveryMode;
     videoRequestOptions.version = version;
     
     return videoRequestOptions;

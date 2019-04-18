@@ -1,4 +1,4 @@
-const xcODE = require('xcODE');
+const xcode = require('xcode');
 const fs = require('fs');
 const path = require('path');
 const log = require('npmlog');
@@ -16,14 +16,14 @@ const getGroup = require('./getGroup');
 
 /**
  * Register native module IOS adds given dependency to project by adding
- * its xcODEproj to project libraries as well as attaching static library
+ * its xcodeproj to project libraries as well as attaching static library
  * to the first target (the main one)
  *
  * If library is already linked, this action is a no-op.
  */
 module.exports = function registerNativeModuleIOS(dependencyConfig, projectConfig) {
-  const project = xcODE.project(projectConfig.pbxprojPath).parseSync();
-  const dependencyProject = xcODE.project(dependencyConfig.pbxprojPath).parseSync();
+  const project = xcode.project(projectConfig.pbxprojPath).parseSync();
+  const dependencyProject = xcode.project(dependencyConfig.pbxprojPath).parseSync();
 
   const libraries = createGroupWithMessage(project, projectConfig.libraryFolder);
   const file = addFileToProject(

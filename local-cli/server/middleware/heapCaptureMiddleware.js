@@ -2,7 +2,7 @@
  * Copyright (c) 2016-present, Facebook, Inc.
  * All rights reserved.
  *
- * This source cODE is licensed under the BSD-style license found in the
+ * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
@@ -51,7 +51,7 @@ function getSourceMapForUrl(url, onFailure, onSuccess) {
     }).on('close', (err) => {
       if (!sawEnd) {
         onFailure('Connection terminated prematurely because of: '
-                      + err.cODE + ' for url: ' + url);
+                      + err.code + ' for url: ' + url);
       }
     });
   }).on('error', (err) => {
@@ -155,11 +155,11 @@ module.exports = function(req, res, next) {
         console.error('Error processing heap capture: ' + err.message);
         console.error('make sure you have installed inliner with \'npm install inliner -g\'');
       });
-      inliner.on('exit', (cODE, signal) => {
-        if (cODE === 0) {
+      inliner.on('exit', (code, signal) => {
+        if (code === 0) {
           console.log('Heap capture written to: ' + captureHtml);
         } else {
-          console.error('Error processing heap capture, inliner returned cODE: ' + cODE);
+          console.error('Error processing heap capture, inliner returned code: ' + code);
         }
       });
     }

@@ -18,9 +18,9 @@
         outputFileType = AVFileTypeMPEG4;
     }
     
-    NSString *cODEcKey = [RCTConvert NSString:params[@"cODEcKey"]];
-    if(cODEcKey == nil) {
-        cODEcKey = AVVideoCODEcH264;
+    NSString *codecKey = [RCTConvert NSString:params[@"codecKey"]];
+    if(codecKey == nil) {
+        codecKey = AVVideoCodecH264;
     }
     
     NSString *profileLevelKey = [RCTConvert NSString:params[@"profileLevelKey"]];
@@ -59,18 +59,18 @@
         }
     }
 
-    self.encODEr = [SDAVAssetExportSession.alloc initWithAsset:avasset];
+    self.encoder = [SDAVAssetExportSession.alloc initWithAsset:avasset];
     
-    [_encODEr addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [_encoder addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     
-    _encODEr.outputFileType = outputFileType;
-    _encODEr.outputURL = tempUrl;
-    _encODEr.shouldOptimizeForNetworkUse = YES;
+    _encoder.outputFileType = outputFileType;
+    _encoder.outputURL = tempUrl;
+    _encoder.shouldOptimizeForNetworkUse = YES;
 
-    _encODEr.videoSettings = @
+    _encoder.videoSettings = @
     {
-    AVVideoCODEcKey: cODEcKey,
+    AVVideoCodecKey: codecKey,
     AVVideoWidthKey: @(width),
     AVVideoHeightKey: @(height),
     AVVideoCompressionPropertiesKey: @
@@ -79,18 +79,18 @@
         AVVideoProfileLevelKey: profileLevelKey,
         },
     };
-    _encODEr.audioSettings = @
+    _encoder.audioSettings = @
     {
     AVFormatIDKey: @(kAudioFormatMPEG4AAC),
     AVNumberOfChannelsKey: @2,
     AVSampleRateKey: @44100,
-    AVEncODErBitRateKey: @128000,
+    AVEncoderBitRateKey: @128000,
     };
     
     @try {
-        [_encODEr exportAsynchronouslyWithCompletionHandler:^
+        [_encoder exportAsynchronouslyWithCompletionHandler:^
          {
-             if (_encODEr.status == AVAssetExportSessionStatusCompleted)
+             if (_encoder.status == AVAssetExportSessionStatusCompleted)
              {
                  NSError *error;
                  if ([[NSFileManager defaultManager] fileExistsAtPath:fullFileName] && [[NSFileManager defaultManager] isDeletableFileAtPath:fullFileName]) {
@@ -109,25 +109,25 @@
                      completeBlock(YES, nil, [NSURL URLWithString:fullFileName]);
                  }
              }
-             else if (_encODEr.status == AVAssetExportSessionStatusCancelled)
+             else if (_encoder.status == AVAssetExportSessionStatusCancelled)
              {
                  completeBlock(NO, nil, nil);
              }
              else
              {
-                 completeBlock(NO, _encODEr.error, nil);
+                 completeBlock(NO, _encoder.error, nil);
              }
-             [_encODEr removeObserver:self forKeyPath:@"progress"];
+             [_encoder removeObserver:self forKeyPath:@"progress"];
 
     }];
     } @catch (NSException *exception) {
         completeBlock(NO, nil, nil);
-        [_encODEr removeObserver:self forKeyPath:@"progress"];
+        [_encoder removeObserver:self forKeyPath:@"progress"];
 
     }
 
     return ^{
-        [_encODEr cancelExport];
+        [_encoder cancelExport];
     };
 }
 

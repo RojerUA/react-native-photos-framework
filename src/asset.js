@@ -95,7 +95,7 @@ export default class Asset {
         var str = [];
         for (var p in obj) {
             if (obj.hasOwnProperty(p)) {
-                str.push(encODEURIComponent(p) + "=" + encODEURIComponent(
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(
                     obj[p]));
             }
         }

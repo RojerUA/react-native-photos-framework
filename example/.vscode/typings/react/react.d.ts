@@ -41,31 +41,31 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     interface Factory<P> {
-        (props?: P, ...children: ReactNODE[]): ReactElement<P>;
+        (props?: P, ...children: ReactNode[]): ReactElement<P>;
     }
 
     interface ClassicFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNODE[]): ClassicElement<P>;
+        (props?: P, ...children: ReactNode[]): ClassicElement<P>;
     }
 
     interface DOMFactory<P extends Props<Element>> extends Factory<P> {
-        (props?: P, ...children: ReactNODE[]): DOMElement<P>;
+        (props?: P, ...children: ReactNode[]): DOMElement<P>;
     }
 
     type HTMLFactory = DOMFactory<HTMLProps<HTMLElement>>;
     type SVGFactory = DOMFactory<SVGProps>;
 
     //
-    // React NODEs
+    // React Nodes
     // http://facebook.github.io/react/docs/glossary.html
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNODE> but type aliases cannot be recursive
+    // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNODE = ReactChild | ReactFragment | boolean;
+    type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
     // Top Level API
@@ -80,28 +80,28 @@ declare namespace __React {
     function createElement<P>(
         type: string,
         props?: P,
-        ...children: ReactNODE[]): DOMElement<P>;
+        ...children: ReactNode[]): DOMElement<P>;
     function createElement<P>(
         type: ClassicComponentClass<P>,
         props?: P,
-        ...children: ReactNODE[]): ClassicElement<P>;
+        ...children: ReactNode[]): ClassicElement<P>;
     function createElement<P>(
         type: ComponentClass<P> | StatelessComponent<P>,
         props?: P,
-        ...children: ReactNODE[]): ReactElement<P>;
+        ...children: ReactNode[]): ReactElement<P>;
 
     function cloneElement<P>(
         element: DOMElement<P>,
         props?: P,
-        ...children: ReactNODE[]): DOMElement<P>;
+        ...children: ReactNode[]): DOMElement<P>;
     function cloneElement<P>(
         element: ClassicElement<P>,
         props?: P,
-        ...children: ReactNODE[]): ClassicElement<P>;
+        ...children: ReactNode[]): ClassicElement<P>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: P,
-        ...children: ReactNODE[]): ReactElement<P>;
+        ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement(obttct: {}): boolean;
 
@@ -241,11 +241,11 @@ declare namespace __React {
 
     interface KeyboardEvent extends SyntheticEvent {
         altKey: boolean;
-        charCODE: number;
+        charCode: number;
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         key: string;
-        keyCODE: number;
+        keyCode: number;
         locale: string;
         location: number;
         metaKey: boolean;
@@ -288,7 +288,7 @@ declare namespace __React {
     }
 
     interface WheelEvent extends SyntheticEvent {
-        deltaMODE: number;
+        deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
@@ -320,7 +320,7 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     interface Props<T> {
-        children?: ReactNODE;
+        children?: ReactNode;
         key?: string | number;
         ref?: string | ((component: T) => any);
     }
@@ -511,9 +511,9 @@ declare namespace __React {
 
         /**
          * This property describes how the element's background images should blend with each other and the element's background color.
-         * The value is a list of blend mODEs that corresponds to each background image. Each element in the list will apply to the corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers, the UA must calculate its used value by repeating the list of values until there are enough.
+         * The value is a list of blend modes that corresponds to each background image. Each element in the list will apply to the corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers, the UA must calculate its used value by repeating the list of values until there are enough.
          */
-        backgroundBlendMODE?: any;
+        backgroundBlendMode?: any;
 
         backgroundColor?: any;
         
@@ -1012,7 +1012,7 @@ declare namespace __React {
          */
         hyphens?: any;
 
-        imeMODE?: any;
+        imeMode?: any;
 
         layoutGrid?: any;
 
@@ -1020,7 +1020,7 @@ declare namespace __React {
 
         layoutGridLine?: any;
 
-        layoutGridMODE?: any;
+        layoutGridMode?: any;
 
         layoutGridType?: any;
 
@@ -1095,7 +1095,7 @@ declare namespace __React {
         marqueeStyle?: any;
 
         /**
-         * This property is shorthand for setting mask-image, mask-mODE, mask-repeat, mask-position, mask-clip, mask-origin, mask-composite and mask-size. Omitted values are set to their original properties' initial values.
+         * This property is shorthand for setting mask-image, mask-mode, mask-repeat, mask-position, mask-clip, mask-origin, mask-composite and mask-size. Omitted values are set to their original properties' initial values.
          */
         mask?: any;
 
@@ -1420,7 +1420,7 @@ declare namespace __React {
         textKashidaSpace?: any;
 
         /**
-         * The text-line-through property is a shorthand property for text-line-through-style, text-line-through-color and text-line-through-mODE. (Considered obsolete; use text-decoration instead.)
+         * The text-line-through property is a shorthand property for text-line-through-style, text-line-through-color and text-line-through-mode. (Considered obsolete; use text-decoration instead.)
          */
         textLineThrough?: any;
 
@@ -1431,10 +1431,10 @@ declare namespace __React {
         textLineThroughColor?: any;
 
         /**
-         * Sets the mODE for the line-through text decoration, determining whether the text decoration affects the space characters or not.
+         * Sets the mode for the line-through text decoration, determining whether the text decoration affects the space characters or not.
          * (Considered obsolete; use text-decoration-skip instead.)
          */
-        textLineThroughMODE?: any;
+        textLineThroughMode?: any;
 
         /**
          * Specifies the line style for line-through text decoration.
@@ -1448,12 +1448,12 @@ declare namespace __React {
         textLineThroughWidth?: any;
 
         /**
-         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mODE and text-overflow-ellipsis
+         * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
          */
         textOverflow?: any;
 
         /**
-         * The text-overline property is the shorthand for the text-overline-style, text-overline-width, text-overline-color, and text-overline-mODE properties.
+         * The text-overline property is the shorthand for the text-overline-style, text-overline-width, text-overline-color, and text-overline-mode properties.
          */
         textOverline?: any;
 
@@ -1463,9 +1463,9 @@ declare namespace __React {
         textOverlineColor?: any;
 
         /**
-         * Sets the mODE for the overline text decoration, determining whether the text decoration affects the space characters or not.
+         * Sets the mode for the overline text decoration, determining whether the text decoration affects the space characters or not.
          */
-        textOverlineMODE?: any;
+        textOverlineMode?: any;
 
         /**
          * Specifies the line style for overline text decoration.
@@ -1565,14 +1565,14 @@ declare namespace __React {
         transitionTimingFunction?: any;
 
         /**
-         * The unicODE-bidi CSS property specifies the level of embedding with respect to the bidirectional algorithm.
+         * The unicode-bidi CSS property specifies the level of embedding with respect to the bidirectional algorithm.
          */
-        unicODEBidi?: any;
+        unicodeBidi?: any;
 
         /**
-         * unicODE-range allows you to set a specific range of characters to be downloaded from a font (embedded using @font-face) and made available for use on the current page.
+         * unicode-range allows you to set a specific range of characters to be downloaded from a font (embedded using @font-face) and made available for use on the current page.
          */
-        unicODERange?: any;
+        unicodeRange?: any;
 
         /**
          * This is for all the high level UX stuff.
@@ -1681,9 +1681,9 @@ declare namespace __React {
         wrapOption?: any;
 
         /**
-         * writing-mODE specifies if lines of text are laid out horizontally or vertically, and the direction which lines of text and blocks progress.
+         * writing-mode specifies if lines of text are laid out horizontally or vertically, and the direction which lines of text and blocks progress.
          */
-        writingMODE?: any;
+        writingMode?: any;
 
 
         [propertyName: string]: any;
@@ -1748,7 +1748,7 @@ declare namespace __React {
         httpEquiv?: string;
         icon?: string;
         id?: string;
-        inputMODE?: string;
+        inputMode?: string;
         integrity?: string;
         is?: string;
         keyParams?: string;
@@ -1812,7 +1812,7 @@ declare namespace __React {
         useMap?: string;
         value?: string | string[];
         width?: number | string;
-        wmODE?: string;
+        wmode?: string;
         wrap?: string;
 
         // RDFa Attributes
@@ -1923,7 +1923,7 @@ declare namespace __React {
         canvas: HTMLFactory;
         caption: HTMLFactory;
         cite: HTMLFactory;
-        cODE: HTMLFactory;
+        code: HTMLFactory;
         col: HTMLFactory;
         colgroup: HTMLFactory;
         data: HTMLFactory;
@@ -2062,7 +2062,7 @@ declare namespace __React {
         number: Requireable<any>;
         obttct: Requireable<any>;
         string: Requireable<any>;
-        nODE: Requireable<any>;
+        node: Requireable<any>;
         element: Requireable<any>;
         instanceOf(expectedClass: {}): Requireable<any>;
         oneOf(types: any[]): Requireable<any>;
@@ -2077,11 +2077,11 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: ReactNODE, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNODE, fn: (child: ReactChild, index: number) => any): void;
-        count(children: ReactNODE): number;
-        only(children: ReactNODE): ReactElement<any>;
-        toArray(children: ReactNODE): ReactChild[];
+        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
+        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
+        count(children: ReactNode): number;
+        only(children: ReactNode): ReactElement<any>;
+        toArray(children: ReactNode): ReactChild[];
     }
 
     //
@@ -2155,7 +2155,7 @@ declare namespace JSX {
         canvas: React.HTMLProps<HTMLCanvasElement>;
         caption: React.HTMLProps<HTMLElement>;
         cite: React.HTMLProps<HTMLElement>;
-        cODE: React.HTMLProps<HTMLElement>;
+        code: React.HTMLProps<HTMLElement>;
         col: React.HTMLProps<HTMLTableColElement>;
         colgroup: React.HTMLProps<HTMLTableColElement>;
         data: React.HTMLProps<HTMLElement>;
@@ -2189,7 +2189,7 @@ declare namespace JSX {
         iframe: React.HTMLProps<HTMLIFrameElement>;
         img: React.HTMLProps<HTMLImageElement>;
         input: React.HTMLProps<HTMLInputElement>;
-        ins: React.HTMLProps<HTMLMODElement>;
+        ins: React.HTMLProps<HTMLModElement>;
         kbd: React.HTMLProps<HTMLElement>;
         keygen: React.HTMLProps<HTMLElement>;
         label: React.HTMLProps<HTMLLabelElement>;

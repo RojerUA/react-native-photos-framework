@@ -1,7 +1,7 @@
 /**
- * For all files that are created and referenced from another `.xcODEproj` -
+ * For all files that are created and referenced from another `.xcodeproj` -
  * a new PBXItemContainerProxy is created that contains `containerPortal` value
- * which equals to xcODEproj file.uuid from PBXFileReference section.
+ * which equals to xcodeproj file.uuid from PBXFileReference section.
  */
 module.exports = function removeFromPbxItemContainerProxySection(project, file) {
   const section = project.hash.project.objects.PBXContainerItemProxy;
